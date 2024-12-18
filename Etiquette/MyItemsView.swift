@@ -27,6 +27,8 @@ struct MyItemsView: View {
                         TextField("Search your item", text: $searchText)
                             .foregroundColor(.primary) // Si adatta al colore del testo principale
                             .disableAutocorrection(true)
+                            .accessibilityLabel("Search for an item") // Etichetta di ricerca
+                            .accessibilityHint("Enter keywords to search for items.")
                     }
                     .padding()
                     .background(Color(UIColor.systemGray6)) // Colore che cambia automaticamente tra modalità chiara e scura
@@ -44,7 +46,8 @@ struct MyItemsView: View {
                             .foregroundColor(.blue) // Colore blu, cambia per le modalità
                     }
                     .padding(.leading, 10) // Spaziatura verso sinistra
-                    .accessibilityLabel("Open Filters")
+                    .accessibilityLabel("Open Filters") // Aggiungi l'etichetta per il pulsante dei filtri
+                    .accessibilityHint("Tap to show or hide filter options.") // Fornisce un suggerimento all'utente
                 }
                 .padding(.horizontal)
                 .padding(.top, 20)
@@ -63,6 +66,9 @@ struct MyItemsView: View {
                                         .background(selectedCategories.contains(category) ? Color.blue : Color.gray.opacity(0.3))
                                         .foregroundColor(selectedCategories.contains(category) ? .white : .primary) // Colore che cambia dinamicamente
                                         .cornerRadius(12)
+                                        .accessibilityLabel("Category: \(category)") // Etichetta per VoiceOver
+                                        .accessibilityHint("Tap to select or deselect this category.") // Descrizione dell'azione
+                                        
                                 }
                             }
                         }
@@ -134,7 +140,8 @@ struct AddItemButton: View {
             }
             .frame(height: 160) // Altezza della card
         }
-        .accessibilityLabel("Add Item")
+        .accessibilityLabel("Add Item") // Etichetta per VoiceOver
+        .accessibilityHint("Tap to add a new item to your collection.") // Suggerimento per VoiceOver
     }
 }
 
@@ -149,3 +156,4 @@ struct MyItemsView_Previews: PreviewProvider {
         }
     }
 }
+

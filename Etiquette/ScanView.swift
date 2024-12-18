@@ -40,6 +40,7 @@ struct EditView: View {
                                                 .frame(width: 140, height: 140)
                                                 .clipShape(RoundedRectangle(cornerRadius: 12)) // Cornice arrotondata
                                                 .clipped() // Taglia qualsiasi parte che fuoriesce dal riquadro
+                                                .accessibilityLabel("Item photo selected")
                                         } else {
                                             VStack {
                                                 Image(systemName: "camera")
@@ -50,6 +51,8 @@ struct EditView: View {
                                                 Text("No item photo selected")
                                                     .foregroundColor(.gray)
                                                     .font(.caption)
+                                                    .accessibilityLabel("No item photo selected")
+                                                    .accessibilityHint("Tap to add a photo of the item.")
                                             }
                                         }
                                     }
@@ -69,6 +72,7 @@ struct EditView: View {
                     if labelImage != nil {
                         // Se è stata selezionata l'immagine dell'etichetta, mostriamo i risultati
                         WashingCareResultsSection(classifications: classifications)
+                            .accessibilityLabel("Washing care results available")
                     } else {
                         VStack {
                             ZStack {
@@ -83,6 +87,7 @@ struct EditView: View {
                                                     .aspectRatio(contentMode: .fill) // Immagine adattata per riempire il riquadro
                                                     .frame(width: 140, height: 140)
                                                     .clipShape(RoundedRectangle(cornerRadius: 12)) // Cornice arrotondata
+                                                    .accessibilityLabel("Label photo selected")
                                             } else {
                                                 VStack {
                                                     Image(systemName: "tag.slash")
@@ -93,6 +98,8 @@ struct EditView: View {
                                                     Text("No label care selected")
                                                         .foregroundColor(.gray)
                                                         .font(.caption)
+                                                        .accessibilityLabel("No label care selected")
+                                                        .accessibilityHint("Tap to add a label photo for washing care.")
                                                 }
                                             }
                                         }
@@ -114,11 +121,13 @@ struct EditView: View {
                         .padding(.vertical, 4)
                         .textInputAutocapitalization(.words)
                         .autocorrectionDisabled()
+                        .accessibilityLabel("Enter the item's name")
 
                     TextField("Color", text: $color)
                         .padding(.vertical, 4)
                         .textInputAutocapitalization(.words)
                         .autocorrectionDisabled()
+                        .accessibilityLabel("Enter the color of the item")
                 }
 
                 // Sezione per la categoria
@@ -143,6 +152,8 @@ struct EditView: View {
                         }
                         .padding(.vertical, 8)
                     }
+                    .accessibilityLabel("Select a category for the item")
+                    .accessibilityHint("Tap to choose a category.")
                 }
 
                 // Sezione Fabrics & Percentages
@@ -152,12 +163,14 @@ struct EditView: View {
                             TextField("Fabric", text: $fabrics[index])
                                 .textInputAutocapitalization(.words)
                                 .autocorrectionDisabled()
+                                .accessibilityLabel("Enter fabric type")
                             Spacer()
                             HStack {
                                 TextField("", value: $percentages[index], formatter: NumberFormatter())
                                     .keyboardType(.numberPad)
                                     .frame(width: 60)
                                     .multilineTextAlignment(.trailing)
+                                    .accessibilityLabel("Enter fabric percentage")
                                 Text("%")
                             }
                         }
@@ -168,6 +181,7 @@ struct EditView: View {
                     }) {
                         Label("Add Fabric", systemImage: "plus.circle")
                     }
+                    .accessibilityLabel("Add a new fabric type")
                 }
             }
             .navigationTitle("Edit Item")
@@ -177,12 +191,16 @@ struct EditView: View {
                         showEditView = false
                         showMyItemsView = true
                     }
+                    .accessibilityLabel("Cancel editing")
+                    .accessibilityHint("Tap to cancel and return to the items list.")
                 }
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button("Done") {
                         showEditView = false
                         showMyItemsView = true
                     }
+                    .accessibilityLabel("Save changes")
+                    .accessibilityHint("Tap to save changes and return to the items list.")
                 }
             }
             .actionSheet(isPresented: $showingActionSheet) {
@@ -254,6 +272,7 @@ struct EditView_Previews: PreviewProvider {
         )
     }
 }
+
 
 
 

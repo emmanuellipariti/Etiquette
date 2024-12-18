@@ -4,9 +4,10 @@
 //
 //  Created by Emmanuel Lipariti on 09/12/24.
 //
-import SwiftUI
-
 // TipDetailView for each stain type
+
+import SwiftUICore
+import SwiftUI
 struct TipDetailView: View {
     var tipName: String
     
@@ -51,22 +52,31 @@ struct TipDetailView: View {
                             .frame(maxWidth: .infinity, alignment: .leading) // Allinea il contenuto a sinistra
                         }
                         .padding(.horizontal) // Padding esterno per la card
+                        .accessibilityElement(children: .combine) // Combina i contenuti della card in un'unica entità
+                        .accessibilityLabel("Tap to view remedy for \(remedy.fabric). Remedy: \(remedy.remedy)") // Aggiungi una descrizione di cosa fa l'interazione
+                        .accessibilityAction(named: "Show Remedy Details") {
+                            // Aggiungi azione personalizzata per la selezione della card
+                            print("Card for \(remedy.fabric) tapped")
+                            // Qui si può aggiungere logica per navigare o fare altre azioni
+                        }
                     }
                 } else {
                     // Messaggio di fallback nel caso non ci siano rimedi
                     Text("No remedies available for this stain type.")
                         .foregroundColor(Color(UIColor.secondaryLabel)) // Colore grigio per il testo di fallback
                         .padding()
-                        .accessibilityLabel("No remedies found for \(tipName)") // Etichetta per lettori di schermo
+                        .accessibilityLabel("No remedies found for \(tipName). Please check back later for more information.") // Etichetta per lettori di schermo
                 }
             }
             .padding(.vertical, 20) // Padding verticale per l'intera lista
         }
         .background(Color(UIColor.systemGroupedBackground)) // Sfondo dinamico per l'intera schermata
         .navigationBarTitle(tipName, displayMode: .inline) // Titolo nella barra di navigazione
+        .accessibilityLabel("Detail view for \(tipName) stain. Includes remedies for various fabrics.") // Etichetta generale per la vista
         .accessibilityElement(children: .combine) // Unisce gli elementi figli per una migliore esperienza con lettori di schermo
     }
 }
+
 
 
 
